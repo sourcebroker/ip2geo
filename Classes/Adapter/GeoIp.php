@@ -84,11 +84,11 @@ class GeoIp extends AbstractAdapter
             throw new Exception('Database path does not exist');
         }
 
-        if (!file_exists($databasePath . $databaseName . '.mmdb')) {
+        if (!file_exists($databasePath . $databaseName .'_'. \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash() . '.mmdb')) {
             throw new Exception('Database file does not exist');
         }
 
-        $this->dbPath = $databasePath . $databaseName . '.mmdb';
+        $this->dbPath = $databasePath  . $databaseName .'_'. \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash() . '.mmdb';
     }
 
     /**

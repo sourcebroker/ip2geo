@@ -108,7 +108,7 @@ abstract class AbstractAdapter
     protected static function getRequestIP(): string
     {
         $ipAddress = null;
-        $config = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo']);
+        $config = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo'];
         if (!empty($config)) {
             if (!empty($config['fakeIpHeaderName']) && isset($_SERVER['HTTP_' . $config['fakeIpHeaderName']])) {
                 $ipAddress = $_SERVER['HTTP_' . $config['fakeIpHeaderName']];
