@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.6.0
+~~~~~
+
+1) [BUGFIX] Add hash to database filename in uploads.
+
 0.5.0
 ~~~~~
 
