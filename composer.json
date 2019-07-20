@@ -9,7 +9,6 @@
     "geoip2/geoip2": "~2.9",
     "typo3/cms-core": "^8.7 || ^9.5",
     "typo3/cms-scheduler": "^8.7 || ^9.5"
-
   },
   "autoload": {
     "psr-4": {

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-07-24T12:38:26Z" product-name="ip2geo">
-		<header/>
-		<body>
-			<trans-unit id="scheduler.downloadUrl">
-				<source>Download URL</source>
-			</trans-unit>
-			<trans-unit id="scheduler.databaseName">
-				<source>Database name (used in adapters, symlink in uploads/tx_ip2geo/[name])</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-07-24T12:38:26Z"
+          product-name="ip2geo">
+        <header/>
+        <body>
+            <trans-unit id="scheduler.downloadUrl">
+                <source>Download URL</source>
+            </trans-unit>
+            <trans-unit id="scheduler.databaseName">
+                <source>Database name (used in adapters, symlink in uploads/tx_ip2geo/[name])</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

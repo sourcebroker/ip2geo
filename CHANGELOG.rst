@@ -1,6 +1,10 @@
-
 Changelog
 ---------
+
+master
+~~~~~~
+
+1) [TASK] Code cleanup.
 
 0.6.0
 ~~~~~
