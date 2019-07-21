@@ -15,7 +15,6 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  */
 class DownloadDatabase extends AbstractTask
 {
-
     /**
      *
      */
@@ -86,7 +85,7 @@ class DownloadDatabase extends AbstractTask
     {
         $this->ext = $this->getExtension();
         if (!$this->ext) {
-            $this->showFlashMessage('File extension of given file download URL is not allowed.', 'Execution', 'ERROR');
+            $this->showMessage('File extension of given file download URL is not allowed.', 'Execution', 'ERROR');
             return false;
         }
 
@@ -99,39 +98,38 @@ class DownloadDatabase extends AbstractTask
         $this->tempDatabasePath = GeneralUtility::getFileAbsFileName($this->tempDatabasePath);
 
         if ($this->getDatabaseName() == '') {
-            $this->showFlashMessage('Database name is not defined.', 'Execution', 'ERROR');
+            $this->showMessage('Database name is not defined.', 'Execution', 'ERROR');
             return false;
         }
 
         $inited = $this->initializeDirectories();
         if (!$inited) {
-            $this->showFlashMessage('Unable to initialize directories.', 'Execution', 'ERROR');
+            $this->showMessage('Unable to initialize directories.', 'Execution', 'ERROR');
             return false;
         }
 
         $downloaded = $this->downloadPackage();
         if (!$downloaded) {
-            $this->showFlashMessage('Unable to download package.', 'Execution', 'ERROR');
+            $this->showMessage('Unable to download package.', 'Execution', 'ERROR');
             return false;
         }
 
         $unpacked = $this->extractPackage();
         if (!$unpacked) {
-            $this->showFlashMessage('Unable to extract package.', 'Execution', 'ERROR');
+            $this->showMessage('Unable to extract package.', 'Execution', 'ERROR');
             return false;
         }
 
         $installed = $this->installDatabase();
         if (!$installed) {
-            $this->showFlashMessage('Unable to install databse.', 'Execution', 'ERROR');
+            $this->showMessage('Unable to install databse.', 'Execution', 'ERROR');
             return false;
         }
 
         $this->cleanTemp();
         $this->removeOlderDatabase();
 
-        $this->showFlashMessage('Database has been properly installed.', 'Execution', 'OK');
-
+        $this->showMessage('Database has been properly installed.', 'Execution', 'OK');
         return true;
     }
 
@@ -145,7 +143,7 @@ class DownloadDatabase extends AbstractTask
         if (!is_dir($workingRootPath)) {
             $result = GeneralUtility::mkdir($workingRootPath);
             if (!$result) {
-                $this->showFlashMessage('Unable to create working root directory.', 'Init', 'ERROR');
+                $this->showMessage('Unable to create working root directory.', 'Init', 'ERROR');
                 return false;
             }
         }
@@ -153,7 +151,7 @@ class DownloadDatabase extends AbstractTask
         if (!is_dir($this->databasePath)) {
             $result = GeneralUtility::mkdir($this->databasePath);
             if (!$result) {
-                $this->showFlashMessage('Unable to create database directory.', 'Init', 'ERROR');
+                $this->showMessage('Unable to create database directory.', 'Init', 'ERROR');
                 return false;
             }
         }
@@ -161,7 +159,7 @@ class DownloadDatabase extends AbstractTask
         if (!is_dir($this->tempDatabasePath)) {
             $result = GeneralUtility::mkdir($this->tempDatabasePath);
             if (!$result) {
-                $this->showFlashMessage('Unable to create temporary directory.', 'Init', 'ERROR');
+                $this->showMessage('Unable to create temporary directory.', 'Init', 'ERROR');
                 return false;
             }
         }
@@ -193,7 +191,7 @@ class DownloadDatabase extends AbstractTask
         fclose($fp);
 
         if ($httpCode != 200 || !file_exists($this->tempDownloadPath) || filesize($this->tempDownloadPath) == 0) {
-            $this->showFlashMessage('Failed download database', 'Download', 'ERROR');
+            $this->showMessage('Failed download database', 'Download', 'ERROR');
             return false;
         }
 
@@ -209,16 +207,16 @@ class DownloadDatabase extends AbstractTask
     protected function extractPackage()
     {
         if (!class_exists('PharData')) {
-            $this->showFlashMessage('Class PharData is required', 'Extract', 'ERROR');
+            $this->showMessage('Class PharData is required', 'Extract', 'ERROR');
             return false;
         }
 
         $output = null;
         $result = null;
-        exec('cd ' . $this->tempDatabasePath . ' && tar -zxvf ' . $this->tempDownloadPath, $output, $result);
+        exec('cd ' . $this->tempDatabasePath . ' && tar -zxf ' . $this->tempDownloadPath, $output, $result);
 
         if ($result != 0) {
-            $this->showFlashMessage('Could not extract package', 'Extract', 'ERROR');
+            $this->showMessage('Could not extract package', 'Extract', 'ERROR');
             return false;
         }
 
@@ -234,13 +232,13 @@ class DownloadDatabase extends AbstractTask
     protected function installDatabase()
     {
         if (!is_dir($this->tempDatabasePath)) {
-            $this->showFlashMessage('Extracted directory not exists', 'Install', 'ERROR');
+            $this->showMessage('Extracted directory not exists', 'Install', 'ERROR');
             return false;
         }
 
         $scan = glob('{' . $this->tempDatabasePath . '*/*.mmdb,' . $this->tempDatabasePath . '*.mmdb}', GLOB_BRACE);
         if (count($scan) == 0) {
-            $this->showFlashMessage('Database file not exists in extracted directory', 'Install', 'ERROR');
+            $this->showMessage('Database file not exists in extracted directory', 'Install', 'ERROR');
             return false;
         }
 
@@ -252,7 +250,7 @@ class DownloadDatabase extends AbstractTask
 
         $copied = copy($databaseFile, $targetDatabase);
         if (!$copied) {
-            $this->showFlashMessage('Unable to copy database file', 'Install', 'ERROR');
+            $this->showMessage('Unable to copy database file', 'Install', 'ERROR');
             return false;
         }
 
@@ -267,7 +265,7 @@ class DownloadDatabase extends AbstractTask
         chdir(PATH_site . 'uploads/tx_ip2geo');
         $symlinked = symlink($targetDatabase, pathinfo($targetLink, PATHINFO_BASENAME));
         if (!$symlinked) {
-            $this->showFlashMessage('Unable to create symbolic link', 'Install', 'ERROR');
+            $this->showMessage('Unable to create symbolic link', 'Install', 'ERROR');
             return false;
         }
 
@@ -320,20 +318,28 @@ class DownloadDatabase extends AbstractTask
      * @param string $messageType
      * @throws Exception
      */
-    protected function showFlashMessage($message, $messageTitle, $messageType = 'INFO')
+    protected function showMessage($message, $messageTitle, $messageType = 'INFO')
     {
-        $messageType = mb_strtoupper($messageType);
-        $messageType = (defined('TYPO3\CMS\Core\Messaging\FlashMessage::' . $messageType))
-            ? constant('TYPO3\CMS\Core\Messaging\FlashMessage::' . $messageType)
-            : FlashMessage::INFO;
+        if ($messageType === 'ERROR') {
+            throw new \RuntimeException(self::class . ' error: ' . $message, 1563719873519);
+        }
+        if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI) {
+            echo $message . "\n";
+        } else {
+            $messageType = mb_strtoupper($messageType);
+            $messageType = (defined('TYPO3\CMS\Core\Messaging\FlashMessage::' . $messageType))
+                ? constant('TYPO3\CMS\Core\Messaging\FlashMessage::' . $messageType)
+                : FlashMessage::INFO;
 
-        /** @var FlashMessage $flashMessage */
-        $flashMessage = GeneralUtility::makeInstance(FlashMessage::class, $message, $messageTitle, $messageType, true);
-        /** @var $flashMessageService FlashMessageService */
-        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
-        /** @var $defaultFlashMessageQueue FlashMessageQueue */
-        $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
-        $defaultFlashMessageQueue->enqueue($flashMessage);
+            /** @var FlashMessage $flashMessage */
+            $flashMessage = GeneralUtility::makeInstance(FlashMessage::class, $message, $messageTitle, $messageType,
+                true);
+            /** @var $flashMessageService FlashMessageService */
+            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+            /** @var $defaultFlashMessageQueue FlashMessageQueue */
+            $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
+            $defaultFlashMessageQueue->enqueue($flashMessage);
+        }
     }
 
     /**

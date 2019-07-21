@@ -6,6 +6,7 @@ master
 
 1) [TASK] Code cleanup.
 2) [TASK] Improve hashing method.
+3) [TASK] Improve logging / messaging.
 
 0.6.0
 ~~~~~
