@@ -247,7 +247,7 @@ class DownloadDatabase extends AbstractTask
         $databaseFile = $scan[0];
         $targetDatabase = $this->databasePath . date('Ymd-Hi_') . ($this->isCommercial ? 'commercial_' : 'free_')
             . pathinfo(basename($databaseFile), PATHINFO_FILENAME) . "_"
-            . \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash() . '.'
+            . \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash($this->getDatabaseName()) . '.'
             . pathinfo(basename($databaseFile), PATHINFO_EXTENSION);
 
         $copied = copy($databaseFile, $targetDatabase);
@@ -257,7 +257,7 @@ class DownloadDatabase extends AbstractTask
         }
 
         $targetLink = GeneralUtility::getFileAbsFileName(self::WORKING_ROOT_PATH) . $this->getDatabaseName() . '_'
-            . \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash() . '.'
+            . \SourceBroker\Ip2geo\Utility\GeneralUtility::getHash($this->getDatabaseName()) . '.'
             . pathinfo($targetDatabase, PATHINFO_EXTENSION);
 
         if (file_exists($targetLink)) {

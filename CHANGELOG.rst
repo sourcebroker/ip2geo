@@ -5,6 +5,7 @@ master
 ~~~~~~
 
 1) [TASK] Code cleanup.
+2) [TASK] Improve hashing method.
 
 0.6.0
 ~~~~~

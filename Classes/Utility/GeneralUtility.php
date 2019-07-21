@@ -11,15 +11,16 @@ use Exception;
 class GeneralUtility
 {
     /**
+     * @param string $databaseName
      * @return bool|string
      * @throws Exception
      */
-    public static function getHash()
+    public static function getHash(string $databaseName): string
     {
         $encryptionKey = $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
-        if (!$encryptionKey) {
+        if (empty($encryptionKey)) {
             throw new Exception('EncryptionKey not found.');
         }
-        return substr($encryptionKey, 25, 10);
+        return hash_hmac('sha1', $databaseName, $encryptionKey);
     }
 }
