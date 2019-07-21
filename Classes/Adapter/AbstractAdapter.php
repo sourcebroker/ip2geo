@@ -108,20 +108,16 @@ abstract class AbstractAdapter
     protected static function getRequestIP(): string
     {
         $ipAddress = null;
-        $config = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo'];
-        if (!empty($config)) {
-            if (!empty($config['fakeIpHeaderName']) && isset($_SERVER['HTTP_' . $config['fakeIpHeaderName']])) {
-                $ipAddress = $_SERVER['HTTP_' . $config['fakeIpHeaderName']];
-            } else {
-                $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
-            }
-            if ($ipAddress === '127.0.0.1') {
-                if (!empty($config['defaultLocalIP'])) {
-                    $ipAddress = $config['defaultLocalIP'];
-                }
-            }
+        $config = !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo']) ? $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo'] : [];
+        if (!empty($config['fakeIpHeaderName']) && isset($_SERVER['HTTP_' . $config['fakeIpHeaderName']])) {
+            $ipAddress = $_SERVER['HTTP_' . $config['fakeIpHeaderName']];
         } else {
-            throw new Exception('Can not read ip2geo config.');
+            $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+        }
+        if ($ipAddress === '127.0.0.1') {
+            if (!empty($config['defaultLocalIP'])) {
+                $ipAddress = $config['defaultLocalIP'];
+            }
         }
         if ($ipAddress === null) {
             throw new Exception('Can not read request IP.');

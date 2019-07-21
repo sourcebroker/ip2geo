@@ -7,6 +7,7 @@ master
 1) [TASK] Code cleanup.
 2) [TASK] Improve hashing method.
 3) [TASK] Improve logging / messaging.
+5) [BUGFIX] Do not require config in $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ip2geo']
 
 0.6.0
 ~~~~~
