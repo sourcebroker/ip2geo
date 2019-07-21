@@ -4,7 +4,7 @@
     "GPL-2.0+"
   ],
   "type": "typo3-cms-extension",
-  "description": "Return IP based on geoip. Using maxmind database (free/commercial).",
+  "description": "Returns geo data based on IP - uses Maxmind databases (free/commercial)",
   "require": {
     "geoip2/geoip2": "~2.9",
     "typo3/cms-core": "^8.7 || ^9.5",

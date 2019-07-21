@@ -1,8 +1,8 @@
 Changelog
 ---------
 
-master
-~~~~~~
+1.0.0
+~~~~~
 
 1) [TASK] Code cleanup.
 2) [TASK] Improve hashing method.

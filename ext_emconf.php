@@ -2,7 +2,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Ip2geo Extension',
-    'description' => 'Return IP based on geoip. Using maxmind database (free/commercial)',
+    'description' => 'Returns geo data based on IP - uses Maxmind databases (free/commercial)',
     'category' => 'plugin',
     'author' => 'SourceBroker Team',
     'author_email' => 'office@sourcebroker.dev',
@@ -12,10 +12,10 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '1',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.5.0',
+    'version' => '1.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '7.6.0-9.5.999',
+            'typo3' => '8.7.0-9.5.999',
         ],
         'conflicts' => [
         ],
