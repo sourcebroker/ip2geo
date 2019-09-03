@@ -38,8 +38,41 @@ class DownloadAdditionalFieldsProvider implements AdditionalFieldProviderInterfa
             'cshLabel' => ''
         ];
 
+        $predefinedUrls = [
+            'free_country' => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz',
+            'free_city' => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz',
+            //'commercial_country' => 'https://{AccountID}:{LicenseKey}@geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz',
+            //'commercial_city' => 'https://{AccountID}:{LicenseKey}@geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz',
+        ];
+
+        $downloadUrlFieldHtml = '
+        <div class="form-wizards-wrap">
+            <div class="form-wizards-element">
+                <input type="text" name="tx_scheduler[downloadUrl]" class="form-control" id="task_downloadUrl" value="' . $task->getDownloadUrl() . '">
+            </div>
+            <div class="form-wizards-items-aside">
+                <div class="btn-group">
+                <select class="form-control tceforms-select tceforms-wizardselect"
+                        onchange="document.getElementById(\'task_downloadUrl\').value=this.options[this.selectedIndex].value;this.blur();this.selectedIndex=0;">
+                    <option></option>
+        ';
+
+        foreach ($predefinedUrls as $name => $url) {
+            $translatedLabel = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'LLL:EXT:ip2geo/Resources/Private/Language/locallang_be.xlf:scheduler.predefinedUrl_' . $name,
+                'ip2geo'
+            );
+            $downloadUrlFieldHtml .= '<option value="' . $url . '">' . $translatedLabel . '</option>';
+        }
+        $downloadUrlFieldHtml .= '
+                </select>
+                </div>
+            </div>
+        </div>
+        ';
+
         $additionalFields['downloadUrl'] = [
-            'code' => '<input type="text" class="form-control" name="tx_scheduler[downloadUrl]" value="' . $task->getDownloadUrl() . '" />',
+            'code' => $downloadUrlFieldHtml,
             'label' => 'LLL:EXT:ip2geo/Resources/Private/Language/locallang_be.xlf:scheduler.downloadUrl',
             'cshKey' => '',
             'cshLabel' => ''
