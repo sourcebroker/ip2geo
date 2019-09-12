@@ -4,20 +4,26 @@
           product-name="ip2geo">
         <header/>
         <body>
-            <trans-unit id="scheduler.downloadUrl">
-                <source>Download URL</source>
+            <trans-unit id="scheduler.predefinedConfig">
+                <source>Predefined config</source>
             </trans-unit>
-            <trans-unit id="scheduler.predefinedUrl_free_country">
+            <trans-unit id="scheduler.predefinedConfigSelect">
+                <source>Select predefined config...</source>
+            </trans-unit>
+            <trans-unit id="scheduler.predefinedConfig_free_country">
                 <source>Free Country DB</source>
             </trans-unit>
-            <trans-unit id="scheduler.predefinedUrl_free_city">
+            <trans-unit id="scheduler.predefinedConfig_free_city">
                 <source>Free City DB</source>
             </trans-unit>
-            <trans-unit id="scheduler.predefinedUrl_commercial_country">
+            <trans-unit id="scheduler.predefinedConfig_commercial_country">
                 <source>Commercial Country DB</source>
             </trans-unit>
-            <trans-unit id="scheduler.predefinedUrl_commercial_city">
+            <trans-unit id="scheduler.predefinedConfig_commercial_city">
                 <source>Commercial City DB</source>
+            </trans-unit>
+            <trans-unit id="scheduler.downloadUrl">
+                <source>Download URL</source>
             </trans-unit>
             <trans-unit id="scheduler.databaseName">
                 <source>Database name (used in adapters, symlink in uploads/tx_ip2geo/[name])</source>
