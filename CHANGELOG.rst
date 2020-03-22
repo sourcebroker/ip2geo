@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+1.0.1
+~~~~~
+
+1) [BUGFIX] composer.json bug fixing and clean up.
+
 1.0.0
 ~~~~~
 

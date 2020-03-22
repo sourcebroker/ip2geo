@@ -1,7 +1,7 @@
 {
   "name": "sourcebroker/ip2geo",
   "license": [
-    "GPL-2.0+"
+    "GPL-2.0-or-later"
   ],
   "type": "typo3-cms-extension",
   "description": "Returns geo data based on IP - uses Maxmind databases (free/commercial)",
@@ -15,13 +15,7 @@
       "SourceBroker\\Ip2geo\\": "Classes/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "SourceBroker\\Ip2geo\\Tests\\": "Tests"
-    }
-  },
   "replace": {
-    "ip2geo": "self.version",
     "typo3-ter/ip2geo": "self.version"
   },
   "config": {
@@ -35,7 +29,6 @@
     }
   },
   "scripts": {
-    "phpunit-test": "TYPO3_PATH_ROOT=.Build/Web/ ./.Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/",
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
       "[ -L .Build/Web/typo3conf/ext/ip2geo ]|| ln -snvf ../../../../. .Build/Web/typo3conf/ext/ip2geo"
