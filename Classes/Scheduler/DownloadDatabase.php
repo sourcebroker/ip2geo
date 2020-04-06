@@ -258,7 +258,7 @@ class DownloadDatabase extends AbstractTask
         }
 
         chdir(PATH_site . 'uploads/tx_ip2geo');
-        $symlinked = symlink($targetDatabase, pathinfo($targetLink, PATHINFO_BASENAME));
+        $symlinked = symlink($this->getDatabaseName() . "/" . pathinfo($targetDatabase, PATHINFO_BASENAME), pathinfo($targetLink, PATHINFO_BASENAME));
         if (!$symlinked) {
             $this->showMessage('Unable to create symbolic link', 'Install', 'ERROR');
             return false;
@@ -342,12 +342,15 @@ class DownloadDatabase extends AbstractTask
      */
     protected function getExtension()
     {
+        $url = parse_url($this->downloadUrl);
         foreach ($this->allowedExts as $ext) {
-            $eLen = strlen($ext);
-            $part = substr($this->downloadUrl, -$eLen);
-
-            if ($part == $ext) {
-                return $ext;
+            if (isset($url['query'])) {
+                $params = explode('&', $url['query']);
+                foreach ($params as $param) {
+                    if ($param == 'suffix='.$ext) {
+                        return $ext;
+                    }
+                }
             }
         }
 
