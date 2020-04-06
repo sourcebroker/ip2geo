@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+master
+~~~~~
+
+1) [BUGFIX] Remove not needed check for PharData.
+
 1.0.1
 ~~~~~
 

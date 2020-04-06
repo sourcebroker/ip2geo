@@ -206,11 +206,6 @@ class DownloadDatabase extends AbstractTask
      */
     protected function extractPackage()
     {
-        if (!class_exists('PharData')) {
-            $this->showMessage('Class PharData is required', 'Extract', 'ERROR');
-            return false;
-        }
-
         $output = null;
         $result = null;
         exec('cd ' . $this->tempDatabasePath . ' && tar -zxf ' . $this->tempDownloadPath, $output, $result);
@@ -333,7 +328,7 @@ class DownloadDatabase extends AbstractTask
 
             /** @var FlashMessage $flashMessage */
             $flashMessage = GeneralUtility::makeInstance(FlashMessage::class, $message, $messageTitle, $messageType,
-                true);
+                                                         true);
             /** @var $flashMessageService FlashMessageService */
             $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
             /** @var $defaultFlashMessageQueue FlashMessageQueue */
