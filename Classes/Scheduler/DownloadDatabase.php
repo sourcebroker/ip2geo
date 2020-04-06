@@ -22,9 +22,10 @@ class DownloadDatabase extends AbstractTask
 
     /**
      * Download url
-     * Example for free database: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
-     * Example for free database: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
-     * Example for commercial database: https://www.maxmind.com/app/geoip_download?edition_id=PRODUCT_ID&suffix=tar.gz&license_key=LICENCE_KEY
+     * Example for free or commercial database: https://www.maxmind.com/app/geoip_download?edition_id=PRODUCT_ID&suffix=tar.gz&license_key=LICENCE_KEY
+     * edition_id is from your MaxMind account, for example GeoLite2-ASN GeoLite2-City GeoLite2-Country
+     * LICENCE_KEY generated in your MaxMind account
+     * suffix is filename extension
      *
      * @var string
      */
@@ -59,7 +60,7 @@ class DownloadDatabase extends AbstractTask
     /**
      * @var string[]
      */
-    private $allowedExts = ['.tar.gz', '.tar'];
+    private $allowedExts = ['tar.gz'];
 
     /**
      * @var string

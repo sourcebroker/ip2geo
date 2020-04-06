@@ -6,6 +6,7 @@ master
 
 1) [BUGFIX] Remove not needed check for PharData.
 2) [TASK][FEATURE] Make symlinking relative.
+3) [TASK][BREAKING] Drop support for old free download database of maxmind.
 
 1.0.1
 ~~~~~
